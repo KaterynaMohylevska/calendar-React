@@ -1,11 +1,17 @@
-var webpack = require('webpack');
-
 module.exports = {
-    context: __dirname,
-    devtool: "source-map",
-    entry: "./src/generate.js",
+    entry: "./src/main.js",
     output: {
-        path: __dirname + "/dist",
-        filename: "bundle.js"
+        filename: "./dist/bundle.js"
     },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader"
+                }
+            }
+        ]
+    }
 }
