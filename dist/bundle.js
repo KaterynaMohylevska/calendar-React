@@ -18283,11 +18283,11 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(18);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _const = __webpack_require__(28);
+
+var _monthDay = __webpack_require__(29);
+
+var _monthDay2 = _interopRequireDefault(_monthDay);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18311,8 +18311,6 @@ var Calendar = function (_Component) {
             month: dt.getMonth(),
             year: dt.getFullYear()
         };
-
-        _this.months = _const.MONTHS;
         return _this;
     }
 
@@ -18321,12 +18319,15 @@ var Calendar = function (_Component) {
         value: function render() {
             return [_react2.default.createElement(
                 'header',
-                { key: '1', className: 'month' },
+                { key: '1', className: 'calendar__month' },
                 this.renderHeader()
             ), _react2.default.createElement(
                 'div',
                 { key: '2', className: 'month-days' },
-                this.renderMonthDays()
+                _react2.default.createElement(_monthDay2.default, {
+                    date: this.state.date,
+                    year: this.state.year,
+                    month: this.state.month })
             ), _react2.default.createElement(
                 'footer',
                 { key: '3', className: 'days-name' },
@@ -18340,9 +18341,10 @@ var Calendar = function (_Component) {
 
             var previous = "<";
             var next = ">";
+            var months = _const.MONTHS;
             return [_react2.default.createElement(
                 'button',
-                { className: 'month__previous', onClick: function onClick() {
+                { className: 'calendar__previous-month', onClick: function onClick() {
                         return _this2.setPreviousMonth();
                     } },
                 ' ',
@@ -18350,68 +18352,20 @@ var Calendar = function (_Component) {
                 ' '
             ), _react2.default.createElement(
                 'h2',
-                { className: 'month__name' },
+                null,
                 ' ',
-                this.months[this.state.month],
+                months[this.state.month],
                 ' ',
                 this.state.year
             ), _react2.default.createElement(
                 'button',
-                { className: 'month__next', onClick: function onClick() {
+                { className: 'calendar__next-month', onClick: function onClick() {
                         return _this2.setNextMonth();
                     } },
                 ' ',
                 next,
                 ' '
             )];
-        }
-    }, {
-        key: 'renderMonthDays',
-        value: function renderMonthDays() {
-            var allDays = [];
-            var date = new Date(this.state.year, this.state.month, 1);
-            var weekDay = date.getDay() || 7;
-            var numberDays = new Date(this.state.year, this.state.month + 1, 0).getDate();
-            if (this.month + 1 > 11) {
-                var _numberDays = new Date(this.state.year + 1, 1, 0).getDate();
-            }
-            var numberPreviousDays = new Date(this.state.year + 1, this.state.month, 0).getDate();
-            var startDay = numberPreviousDays - weekDay + 2;
-
-            for (var i = 0; i < weekDay - 1; i++) {
-                allDays.push(_react2.default.createElement(
-                    'button',
-                    { className: 'month-day__prev month-day' },
-                    startDay
-                ));
-                startDay++;
-            }
-
-            for (var j = 1; j <= numberDays; j++) {
-                allDays.push(_react2.default.createElement(
-                    'button',
-                    { className: 'month-day' },
-                    j
-                ));
-            }
-
-            var nextMonthDays = 7 - (weekDay + numberDays - 1) % 7;
-            if (nextMonthDays > 0 && nextMonthDays < 7) {
-                for (var _j = 1; _j <= nextMonthDays; _j++) {
-                    allDays.push(_react2.default.createElement(
-                        'button',
-                        { className: 'month-day__next month-day' },
-                        _j
-                    ));
-                }
-            }
-            // if (this.date.getMonth() == this.month) {
-            //     console.log("dsf");
-            //     let today = this.root_element.getElementsByClassName("month-day")[this.date.getDate() + weekDay - 2];
-            //     today.classList.add("month-day__today");
-            //
-            // }
-            return allDays;
         }
     }, {
         key: 'renderWeekDays',
@@ -18471,6 +18425,119 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var MONTHS = exports.MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MonthDay = function (_Component) {
+    _inherits(MonthDay, _Component);
+
+    function MonthDay() {
+        _classCallCheck(this, MonthDay);
+
+        return _possibleConstructorReturn(this, (MonthDay.__proto__ || Object.getPrototypeOf(MonthDay)).apply(this, arguments));
+    }
+
+    _createClass(MonthDay, [{
+        key: 'render',
+        value: function render() {
+            return [this.previousMonthDays(), this.thisMonthDays(), this.nextMonthDays()];
+        }
+    }, {
+        key: 'previousMonthDays',
+        value: function previousMonthDays() {
+            var prevDays = [];
+            var date = new Date(this.props.year, this.props.month, 1);
+            var weekDay = date.getDay() || 7;
+            var numberPreviousDays = new Date(this.props.year + 1, this.props.month, 0).getDate();
+            var startDay = numberPreviousDays - weekDay + 2;
+
+            for (var i = 0; i < weekDay - 1; i++) {
+                prevDays.push(_react2.default.createElement(
+                    'button',
+                    { className: 'month-day__prev month-day' },
+                    startDay
+                ));
+                startDay++;
+            }
+            return prevDays;
+        }
+    }, {
+        key: 'thisMonthDays',
+        value: function thisMonthDays() {
+            var days = [];
+            var numberDays = new Date(this.props.year, this.props.month + 1, 0).getDate();
+            if (this.props.month + 1 > 11) {
+                var _numberDays = new Date(this.props.year + 1, 1, 0).getDate();
+            }
+            var today = this.props.date.getDate();
+            for (var j = 1; j <= numberDays; j++) {
+                if (j == today && this.props.date.getMonth() == this.props.month) {
+                    days.push(_react2.default.createElement(
+                        'button',
+                        { className: 'month-day month-day__today' },
+                        j
+                    ));
+                } else {
+                    days.push(_react2.default.createElement(
+                        'button',
+                        { className: 'month-day' },
+                        j
+                    ));
+                }
+            }
+            return days;
+        }
+    }, {
+        key: 'nextMonthDays',
+        value: function nextMonthDays() {
+            var date = new Date(this.props.year, this.props.month, 1);
+            var nextDays = [];
+            var weekDay = date.getDay() || 7;
+            var numberDays = new Date(this.props.year, this.props.month + 1, 0).getDate();
+            if (this.props.month + 1 > 11) {
+                var _numberDays2 = new Date(this.props.year + 1, 1, 0).getDate();
+            }
+            var nextMonthDays = 7 - (weekDay + numberDays - 1) % 7;
+            if (nextMonthDays > 0 && nextMonthDays < 7) {
+                for (var j = 1; j <= nextMonthDays; j++) {
+                    nextDays.push(_react2.default.createElement(
+                        'button',
+                        { className: 'month-day__next month-day' },
+                        j
+                    ));
+                }
+            }
+            return nextDays;
+        }
+    }]);
+
+    return MonthDay;
+}(_react.Component);
+
+exports.default = MonthDay;
 
 /***/ })
 /******/ ]);
