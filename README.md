@@ -2,7 +2,7 @@
 For start a project type in terminal:
 npm start
 
-###Список зауважень:
+### Список зауважень:
 - видалити node_modules
 - render() в кінець класу
 - винести daysNames в константи
