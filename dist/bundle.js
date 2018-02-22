@@ -954,9 +954,7 @@ var _calendar2 = _interopRequireDefault(_calendar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(
-//<h1>Hello, world!</h1>,
-_react2.default.createElement(_calendar2.default), document.querySelector(".calendar"));
+_reactDom2.default.render(_react2.default.createElement(_calendar2.default, null), document.querySelector(".calendar"));
 
 /***/ }),
 /* 15 */
@@ -18305,43 +18303,22 @@ var Calendar = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call(this));
 
-        var dt = new Date();
+        var date = new Date();
         _this.state = {
-            date: new Date(),
-            month: dt.getMonth(),
-            year: dt.getFullYear()
+            date: date,
+            month: date.getMonth(),
+            year: date.getFullYear()
         };
         return _this;
     }
 
     _createClass(Calendar, [{
-        key: 'render',
-        value: function render() {
-            return [_react2.default.createElement(
-                'header',
-                { key: '1', className: 'calendar__month' },
-                this.renderHeader()
-            ), _react2.default.createElement(
-                'div',
-                { key: '2', className: 'month-days' },
-                _react2.default.createElement(_monthDay2.default, {
-                    date: this.state.date,
-                    year: this.state.year,
-                    month: this.state.month })
-            ), _react2.default.createElement(
-                'footer',
-                { key: '3', className: 'days-name' },
-                this.renderWeekDays()
-            )];
-        }
-    }, {
         key: 'renderHeader',
         value: function renderHeader() {
             var _this2 = this;
 
             var previous = "<";
             var next = ">";
-            var months = _const.MONTHS;
             return [_react2.default.createElement(
                 'button',
                 { className: 'calendar__previous-month', onClick: function onClick() {
@@ -18354,7 +18331,7 @@ var Calendar = function (_Component) {
                 'h2',
                 null,
                 ' ',
-                months[this.state.month],
+                _const.MONTHS[this.state.month],
                 ' ',
                 this.state.year
             ), _react2.default.createElement(
@@ -18370,8 +18347,7 @@ var Calendar = function (_Component) {
     }, {
         key: 'renderWeekDays',
         value: function renderWeekDays() {
-            var daysName = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
-            return daysName.map(function (day) {
+            return _const.DAYSNAME.map(function (day) {
                 return _react2.default.createElement(
                     'p',
                     { className: 'days-name__name' },
@@ -18407,6 +18383,26 @@ var Calendar = function (_Component) {
                 });
             }
         }
+    }, {
+        key: 'render',
+        value: function render() {
+            return [_react2.default.createElement(
+                'header',
+                { key: '1', className: 'calendar__month' },
+                this.renderHeader()
+            ), _react2.default.createElement(
+                'div',
+                { key: '2', className: 'month-days' },
+                _react2.default.createElement(_monthDay2.default, {
+                    date: this.state.date,
+                    year: this.state.year,
+                    month: this.state.month })
+            ), _react2.default.createElement(
+                'footer',
+                { key: '3', className: 'days-name' },
+                this.renderWeekDays()
+            )];
+        }
     }]);
 
     return Calendar;
@@ -18425,6 +18421,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var MONTHS = exports.MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var DAYSNAME = exports.DAYSNAME = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 
 /***/ }),
 /* 29 */
@@ -18461,11 +18458,6 @@ var MonthDay = function (_Component) {
     }
 
     _createClass(MonthDay, [{
-        key: 'render',
-        value: function render() {
-            return [this.previousMonthDays(), this.thisMonthDays(), this.nextMonthDays()];
-        }
-    }, {
         key: 'previousMonthDays',
         value: function previousMonthDays() {
             var prevDays = [];
@@ -18531,6 +18523,11 @@ var MonthDay = function (_Component) {
                 }
             }
             return nextDays;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return [this.previousMonthDays(), this.thisMonthDays(), this.nextMonthDays()];
         }
     }]);
 

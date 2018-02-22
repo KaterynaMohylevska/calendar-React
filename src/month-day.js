@@ -1,13 +1,6 @@
 import React, {Component} from 'react';
 
 class MonthDay extends Component{
-    render(){
-        return ([
-            this.previousMonthDays(),
-            this.thisMonthDays(),
-            this.nextMonthDays()
-        ])
-    }
     previousMonthDays(){
         let prevDays = [];
         let date = new Date(this.props.year, this.props.month, 1);
@@ -54,6 +47,13 @@ class MonthDay extends Component{
             }
         }
         return nextDays;
+    }
+    render(){
+        return ([
+            this.previousMonthDays(),
+            this.thisMonthDays(),
+            this.nextMonthDays()
+        ])
     }
 }
 
